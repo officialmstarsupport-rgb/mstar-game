@@ -2,33 +2,84 @@
 <html>
 <head>
     <title>M.STAR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
-        body { background: black; color: white; text-align: center; font-family: Arial; margin: 0; overflow: hidden; }
-        #loginScreen, #loadingScreen { padding-top: 50px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: white;
+            font-family: Arial;
+            overflow: hidden; /* no scroll */
+        }
+        #loginScreen, #loadingScreen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('images/bg.jpg') no-repeat center/cover; /* we’ll add bg later */
+            background-color: black;
+        }
         #loadingScreen { display: none; }
-        h1 { color: limegreen; }
-        button { background: limegreen; color: black; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; }
-        .soldiers { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
-        .soldiers img { width: 150px; height: 200px; object-fit: cover; border: 3px solid limegreen; border-radius: 10px; }
+        h1 { color: limegreen; font-size: 10vw; text-shadow: 0 0 10px limegreen; }
+        p { font-size: 4vw; margin: 10px 0; }
+        input { padding: 10px; font-size: 4vw; border-radius: 5px; border: none; text-align: center; }
+        button { 
+            background: limegreen; 
+            color: black; 
+            padding: 3vw 6vw; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            font-size: 5vw;
+            box-shadow: 0 0 15px limegreen;
+        }
+        .soldiers {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 5vw;
+            width: 100%;
+            height: 60%;
+            position: absolute;
+            bottom: 0;
+        }
+        .soldiers img {
+            width: 45%;
+            height: 100%;
+            object-fit: cover; /* makes them fill the space like COD */
+            filter: brightness(0.8);
+        }
         .star { position: absolute; color: limegreen; animation: float 4s infinite linear; }
         @keyframes float { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; }
+        .loading-text { position: absolute; top: 10%; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
+
+<!-- SCREEN 1: LOGIN -->
 <div id="loginScreen">
-    <h1>Welcome to M.STAR</h1>
+    <h1>M.STAR</h1>
     <p>Enter to Join the War</p>
-    <input type="text" id="username" placeholder="Username"><br><br>
+    <input type="text" id="username" placeholder="Username"><br>
     <button onclick="startGame()">BECOME A PLAYER</button>
 </div>
+
+<!-- SCREEN 2: LOADING FULLSCREEN -->
 <div id="loadingScreen">
-    <h1>Loading M.STAR...</h1>
-    <div class="soldiers">
-        <div style="font-size:80px">🪖</div>
-        <img src="images/soldier2.jpg" alt="Boss Vex">
+    <div class="loading-text">
+        <h1>Loading...</h1>
+        <p>Deploying Squad...</p>
     </div>
-    <p>Deploying Squad...</p>
+    <div class="soldiers">
+        <img src="images/soldier1.jpg" alt="">
+        <img src="images/soldier2.jpg" alt="">
+    </div>
 </div>
+
 <audio id="bgMusic" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
@@ -36,7 +87,7 @@
     function startGame() {
         let name = document.getElementById('username').value
         document.getElementById('loginScreen').style.display = 'none'
-        document.getElementById('loadingScreen').style.display = 'block'
+        document.getElementById('loadingScreen').style.display = 'flex'
         document.getElementById('bgMusic').play()
         createStars()
         setTimeout(() => { alert("Welcome " + name + "! M.STAR is Ready!") }, 4000)
