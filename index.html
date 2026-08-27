@@ -104,19 +104,61 @@
         <div class="btn">💎 LUCK ROYALE</div>
     </div>
 
+
     <!-- CENTER -->
     <div class="center-char">
         <img src="images/soldier2.jpg" alt="Boss Vex">
     </div>
+
 
     <!-- BOTTOM -->
     <div class="bottom">
         <div class="bottom-btn">VAULT</div>
         <div class="bottom-btn">WEAPON</div>
         <div class="bottom-btn">PRESET</div>
-        <div><button class="start-btn">START</button></div>
+        <button class="start-btn" onclick="document.getElementById('characterScreen').style.display='block'">START</button>
     </div>
-</div>
+<div id="characterScreen" style="display:none; width:100%; height:100%; background:rgba(0,0,0,0.95); position:absolute; top:0; overflow-y:auto;">
+    <h2 style="color:limegreen; text-align:center; padding:2vh; font-size:4vh;">SELECT YOUR OPERATOR</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2vh; padding:2vh;">
+        
+        <div class="char-card" style="background:#111; border:2px solid limegreen; padding:1vh; border-radius:1vh;">
+            <img src="images/character1.jpg" style="width:100%; border-radius:1vh;">
+            <b style="color:white;">FOSKY</b>
+            <p style="color:cyan; font-size:1.8vh;">SHIELD POINT</p>
+            <p style="color:#aaa; font-size:1.5vh;">Increases max Shield permanently</p>
+        </div>
 
+        <div class="char-card" style="background:#111; border:2px solid red; padding:1vh; border-radius:1vh;">
+            <img src="images/character2.jpg" style="width:100%; border-radius:1vh;">
+            <b style="color:white;">LORDY</b>
+            <p style="color:red; font-size:1.8vh;">BULLDOZER</p>
+            <p style="color:#aaa; font-size:1.5vh;">Sprint speed + first shot damage</p>
+        </div>
+
+        <div class="char-card" style="background:#111; border:2px solid blue; padding:1vh; border-radius:1vh;">
+            <img src="images/character3.jpg" style="width:100%; border-radius:1vh;">
+            <b style="color:white;">TRACY</b>
+            <p style="color:blue; font-size:1.8vh;">ICE WALL</p>
+            <p style="color:#aaa; font-size:1.5vh;">Deploy a wall to block damage</p>
+        </div>
+
+        <div class="char-card" style="background:#111; border:2px solid yellow; padding:1vh; border-radius:1vh;">
+            <img src="images/character4.jpg" style="width:100%; border-radius:1vh;">
+            <b style="color:white;">JUDY</b>
+            <p style="color:yellow; font-size:1.8vh;">LIGHTNING</p>
+            <p style="color:#aaa; font-size:1.5vh;">Move speed increases after kill</p>
+        </div>
+
+        <div class="char-card" style="background:#111; border:2px solid brown; padding:1vh; border-radius:1vh;">
+            <img src="images/character5.jpg" style="width:100%; border-radius:1vh;">
+            <b style="color:white;">VIPY</b>
+            <p style="color:orange; font-size:1.8vh;">VENOM</p>
+            <p style="color:#aaa; font-size:1.5vh;">Poison enemies when you hit them</p>
+        </div>
+        
+    </div>
+    <button onclick="document.getElementById('characterScreen').style.display='none'" style="width:100%; padding:2vh; background:gold; font-size:3vh; font-weight:bold;">CONFIRM</button>
+</div>
 </body>
 </html>
