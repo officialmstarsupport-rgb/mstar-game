@@ -2,107 +2,121 @@
 <html>
 <head>
     <title>M.STAR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, landscape">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             width: 100%;
             height: 100%;
             background: black;
+            overflow: hidden;
+        }
+        
+        /* THIS MAKES IT LANDSCAPE */
+        #game {
+            width: 100vh; /* swap width and height */
+            height: 100vw;
+            transform: rotate(90deg);
+            transform-origin: 50% 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50vw;
+            margin-left: -50vh;
+            background: url('https://i.imgur.com/3QZ8X9P.jpg') no-repeat center/cover;
+        }
+
+        /* LOBBY UI LIKE FREE FIRE */
+        .topbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5vh;
+            background: rgba(0,0,0,0.6);
+            font-size: 2vh;
             color: white;
-            font-family: Arial;
-            overflow: hidden; /* no scroll */
         }
-        #loginScreen, #loadingScreen {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: url('images/bg.jpg') no-repeat center/cover; /* we’ll add bg later */
-            background-color: black;
+        .logo { color: limegreen; font-weight: bold; }
+        .coins { color: gold; }
+
+        .center-char {
+            position: absolute;
+            bottom: 15vh;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 55vh;
         }
-        #loadingScreen { display: none; }
-        h1 { color: limegreen; font-size: 10vw; text-shadow: 0 0 10px limegreen; }
-        p { font-size: 4vw; margin: 10px 0; }
-        input { padding: 10px; font-size: 4vw; border-radius: 5px; border: none; text-align: center; }
-        button { 
-            background: limegreen; 
-            color: black; 
-            padding: 3vw 6vw; 
-            border: none; 
-            border-radius: 10px; 
-            font-weight: bold; 
-            font-size: 5vw;
-            box-shadow: 0 0 15px limegreen;
+        .center-char img { height: 100%; }
+
+        .left-menu {
+            position: absolute;
+            left: 2vh;
+            top: 25vh;
         }
-        .soldiers {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 5vw;
-            width: 100%;
-            height: 60%;
+        .btn {
+            background: rgba(0,0,0,0.7);
+            border: 2px solid limegreen;
+            padding: 1.5vh 2vh;
+            margin: 1vh 0;
+            border-radius: 1vh;
+            color: white;
+            font-size: 2vh;
+            width: 18vh;
+        }
+
+        .bottom {
             position: absolute;
             bottom: 0;
+            width: 100%;
+            display: flex;
+            background: rgba(0,0,0,0.8);
+            padding: 1vh;
         }
-        .soldiers img {
-            width: 45%;
-            height: 100%;
-            object-fit: cover; /* makes them fill the space like COD */
-            filter: brightness(0.8);
+        .bottom-btn { flex: 1; text-align: center; color: white; font-size: 2vh; padding: 1vh; }
+        .start-btn {
+            background: gold;
+            color: black;
+            font-weight: bold;
+            font-size: 3vh;
+            padding: 2vh 4vh;
+            border-radius: 1.5vh;
+            border: none;
+            box-shadow: 0 0 2vh gold;
         }
-        .star { position: absolute; color: limegreen; animation: float 4s infinite linear; }
-        @keyframes float { 0% { transform: translateY(100vh); opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; }
-        .loading-text { position: absolute; top: 10%; width: 100%; text-align: center; }
     </style>
 </head>
 <body>
 
-<!-- SCREEN 1: LOGIN -->
-<div id="loginScreen">
-    <h1>M.STAR</h1>
-    <p>Enter to Join the War</p>
-    <input type="text" id="username" placeholder="Username"><br>
-    <button onclick="startGame()">BECOME A PLAYER</button>
+<div id="game">
+    <!-- TOP -->
+    <div class="topbar">
+        <div>MSTAR_Player</div>
+        <div class="logo">M.STAR</div>
+        <div class="coins">57,180 💰</div>
+    </div>
+
+    <!-- LEFT -->
+    <div class="left-menu">
+        <div class="btn">🛒 STORE</div>
+        <div class="btn">🎁 EVENTS</div>
+        <div class="btn">💎 LUCK ROYALE</div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-char">
+        <img src="images/soldier2.jpg" alt="Boss Vex">
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="bottom">
+        <div class="bottom-btn">VAULT</div>
+        <div class="bottom-btn">WEAPON</div>
+        <div class="bottom-btn">PRESET</div>
+        <div><button class="start-btn">START</button></div>
+    </div>
 </div>
 
-<!-- SCREEN 2: LOADING FULLSCREEN -->
-<div id="loadingScreen">
-    <div class="loading-text">
-        <h1>Loading...</h1>
-        <p>Deploying Squad...</p>
-    </div>
-    <div class="soldiers">
-        <img src="images/soldier1.jpg" alt="">
-        <img src="images/soldier2.jpg" alt="">
-    </div>
-</div>
-
-<audio id="bgMusic" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-<script>
-    function startGame() {
-        let name = document.getElementById('username').value
-        document.getElementById('loginScreen').style.display = 'none'
-        document.getElementById('loadingScreen').style.display = 'flex'
-        document.getElementById('bgMusic').play()
-        createStars()
-        setTimeout(() => { alert("Welcome " + name + "! M.STAR is Ready!") }, 4000)
-    }
-    function createStars() {
-        setInterval(() => {
-            let star = document.createElement('div')
-            star.className = 'star'
-            star.innerHTML = '✨'
-            star.style.left = Math.random() * 100 + '%'
-            star.style.fontSize = Math.random() * 15 + 10 + 'px'
-            document.body.appendChild(star)
-            setTimeout(() => star.remove(), 4000)
-        }, 200)
-    }
-</script>
 </body>
 </html>
